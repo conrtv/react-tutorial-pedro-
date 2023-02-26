@@ -1,35 +1,23 @@
 import "./App.css";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { Contact } from "./pages/Contact";
+import { useState, createContext } from "react";
 
 function App() {
-  //    `https://excuser-three.vercel.app/v1/excuse/${category}`
-
-  const [genExcuse, setGenExcuse] = useState(null);
-
-  const fetchExcuse = (excuse) => {
-    axios
-      .get(`https://excuser-three.vercel.app/v1/excuse/${excuse}/`)
-      .then((res) => {
-        setGenExcuse(res.data[0].excuse);
-      });
-  };
-
   return (
     <div className="App">
-      <h1>Generate An Excuse</h1>
-
-      <button onClick={() => fetchExcuse("family")}>Family</button>
-      <button onClick={() => fetchExcuse("office")}>Office</button>
-      <button onClick={() => fetchExcuse("children")}>Children</button>
-      <button onClick={() => fetchExcuse("college")}>College</button>
-      <button onClick={() => fetchExcuse("party")}>Party</button>
-      <button onClick={() => fetchExcuse("funny")}>Funny</button>
-      <button onClick={() => fetchExcuse("unbelievable")}>Unbelievable</button>
-      <button onClick={() => fetchExcuse("developers")}>Developers</button>
-      <button onClick={() => fetchExcuse("gaming")}>Gaming</button>
-
-      <p> {genExcuse}</p>
+      <Router>
+        <div>
+          <Link to="/"> Home </Link>
+          <Link to="/contact"> Contact </Link>
+        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Contact" element={<Contact />} />
+        </Routes>
+        <div>footer</div>
+      </Router>
     </div>
   );
 }
